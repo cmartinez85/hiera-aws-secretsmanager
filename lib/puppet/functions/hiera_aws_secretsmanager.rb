@@ -46,6 +46,11 @@ Puppet::Functions.create_function(:hiera_aws_secretsmanager) do
     # translate them here. We choose '=' merely because it is
     # graphically similar to ':'. This could be amended to
     # quoted-printable in the future if needed.
+    
+    unless options.include? 'delimiter'
+      key = key.dup.tr('::', options['delimiter'])
+    end
+
     key = key.dup.tr(':', '=')
 
     @context = context
